@@ -36,7 +36,6 @@ function normalizeDetectionText(rawText: string): string {
     .replace(/[\u2013\u2014]/g, "-")
     .replace(/[\u00A0]/g, " ")
     .replace(/([A-Za-z])\s*[-–—]\s*([A-Za-z])/g, "$1-$2")
-    .replace(/\b([A-Za-z])\s+([A-Za-z])\b/g, "$1$2")
     .replace(/[\r\n\t]+/g, " ")
     .replace(/\s{2,}/g, " ")
     .trim();

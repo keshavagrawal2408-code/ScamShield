@@ -55,7 +55,17 @@ export default function ScreenshotTab() {
 
     let worker: Awaited<ReturnType<typeof createWorker>> | null = null;
     try {
-      worker = await createWorker("eng");
+      worker = await createWorker("eng", 1, {
+        workerPath: "https://cdn.jsdelivr.net/npm/tesseract.js@7.0.0/dist/worker.min.js",
+        logger: (message) => {
+          if (message.status === "recognizing text") {
+            setOcrStatus("loading");
+          }
+        },
+        errorHandler: (workerError) => {
+          console.error("Tesseract worker error:", workerError);
+        },
+      });
       const {
         data: { text },
       } = await worker.recognize(file);
